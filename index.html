@@ -1,15 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home cinema</title>
-    <link rel="stylesheet" href="./style/css/app.css">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dosis:wght@700;800&family=Red+Hat+Display:wght@400;500&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="./style/css/main.css" />
+    <title>Mj Cinema</title>
 </head>
+
 <body>
-    
-    <script src="src/js/secrect.js"></script>
-    <script src="src/js/main.js"></script>
+    <header id="header" class="header-container">
+        <span class="header-arrow inactive">&lt;</span>
+        <h1 class="header-title">MjCinema</h1>
+        <button class="btn-languageChange">Español</button>
+        <h1 class="header-title header-title--categoryView inactive">Acción</h1>
+        <form id="searchForm" class="header-searchForm">
+            <input type="text" placeholder="Vengadores" />
+            <button id="searchBtn">🔍</button>
+        </form>
+    </header>
+    <section id="trendingPreview" class="trendingPreview-container">
+        <div class="trendingPreview-header">
+            <h2 class="trendingPreview-title">Tendencias</h2>
+            <button class="trendingPreview-btn">Ver más</button>
+        </div>
+        <article class="trendingPreview-movieList">
+            <div class="movie-container movie-container--loading"></div>
+            <div class="movie-container movie-container--loading"></div>
+            <div class="movie-container movie-container--loading"></div>
+        </article>
+    </section>
+    <section id="categoriesPreview" class="categoriesPreview-container">
+        <h2 class="categoriesPreview-title">Categorías</h2>
+        <article class="categoriesPreview-list">
+            <div class="category-container">
+                <div class="category-container--loading1">
+                    <div class="category-container--loading2"></div>
+                </div>
+            </div>
+
+        </article>
+    </section>
+    <section id="liked" class="liked-container">
+        <div class="liked-header">
+            <h2 class="liked-title">peliculas favoritas</h2>
+        </div>
+        <article class="liked-MovieList">
+            <div class="movie-container">
+                <img src="data:image/jpeg;base64,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" alt="" class="movie-img">
+            </div>
+        </article>
+    </section>
+    <section id="genericList" class="genericList-container inactive">
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading"></div>
+    </section>
+    <section id="movieDetail" class="movieDetail-container inactive">
+        <h1 class="movieDetail-title">Deadpool</h1>
+        <span class="movieDetail-score">7.6</span>
+        <p class="movieDetail-description">
+        </p>
+        <article class="categories-list">
+            <div class=" category-container--loading1">
+                <div class="category-container--loading2"></div>
+            </div>
+        </article>
+        <article class="relatedMovies-container">
+            <h2 class="relatedMovies-title">Películas similares</h2>
+            <div class="relatedMovies-scrollContainer">
+                <div class="movie-container movie-container--loading"></div>
+                <div class="movie-container movie-container--loading"></div>
+                <div class="movie-container movie-container--loading"></div>
+            </div>
+        </article>
+    </section>
+    <footer>Hecho con amor en Platzi por @juandc</footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="./src/js/secrect.js"></script>
+    <script src="./src/js/nodes.js"></script>
+    <script src="./src/js/main.js"></script>
+    <script src="./src/js/navigation.js"></script>
 </body>
+
 </html>
